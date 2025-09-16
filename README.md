@@ -1,5 +1,5 @@
-[1控1文档](docs/starai.md)
+[1控1文档](docs/sources/starai.md)
 
-[1控1文档_EN](docs/starai_en.md)
+[1控1文档_EN](docs/sources/starai_en.md)
 
-[2控2文档](docs/bi_starai.md)
+[2控2文档](docs/sources/bi_starai.md)
