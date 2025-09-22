@@ -143,8 +143,10 @@ lerobot-find-port
 
 For example：
 
-1. Example output when identifying the leader arm's port (e.g., `/dev/tty.usbmodem575E0031751` on Mac, or possibly `/dev/ttyUSB0` on Linux):
-2. Example output when identifying the follower arm's port (e.g., `/dev/tty.usbmodem575E0032081`on Mac, or possibly `/dev/ttyUSB1` on Linux):
+1. Example output when identifying the Leader's left_arm_port (e.g., `/dev/tty.usbmodem575E0031751` on Mac, or possibly /dev/ttyUSB0 on Linux):
+2. Example output when identifying the Leader's right_arm_port (e.g., `/dev/tty.usbmodem575E0032081` on Mac, or possibly /dev/ttyUSB02 on Linux):
+3. Example output when identifying the Follower's left_arm_port (e.g., `/dev/tty.usbmodem575E0032411` on Mac, or possibly /dev/ttyUSB1 on Linux):
+4. Example output when identifying the Follower's right_arm_port (e.g., `/dev/tty.usbmodem575E0032741` on Mac, or possibly /dev/ttyUSB3 on Linux):
 
 > [!NOTE]
 >
@@ -207,20 +209,20 @@ Below are the reference values. Under normal circumstances, the actual limit ref
 
 > [!TIP]
 >
-> Connect the leader to /dev/ttyUSB0, or modify the command below.
+> Connect the left_arm_port to /dev/ttyUSB0 and the right_arm_port to /dev/ttyUSB2, or modify the command below.
 
 ```bash
-lerobot-calibrate     --teleop.type=starai_violin --teleop.port=/dev/ttyUSB0 --teleop.id=my_awesome_staraiviolin_arm
+lerobot-calibrate     --teleop.type=bi_starai_leader  --teleop.left_arm_port=/dev/ttyUSB0  --teleop.right_arm_port=/dev/ttyUSB2  --teleop.id=bi_starai_leader
 ```
 
 ### follower
 
 > [!TIP]
 >
-> Connect the follower to /dev/ttyUSB1, or modify the command below.
+> Connect the left_arm_port to /dev/ttyUSB1 and the right_arm_port to /dev/ttyUSB3, or modify the command below.
 
 ```bash
-lerobot-calibrate     --robot.type=starai_viola --robot.port=/dev/ttyUSB1 --robot.id=my_awesome_staraiviola_arm
+lerobot-calibrate     --robot.type=bi_starai_follower  --robot.left_arm_port=/dev/ttyUSB1  --robot.right_arm_port=/dev/ttyUSB3 --robot.id=bi_starai_follower
 ```
 
 ## Teleoperate
@@ -235,12 +237,14 @@ Then you are ready to teleoperate your robot (It won't display the cameras)! Run
 
 ```bash
 lerobot-teleoperate \
-    --robot.type=starai_viola \
-    --robot.port=/dev/ttyUSB1 \
-    --robot.id=my_awesome_staraiviola_arm \
-    --teleop.type=starai_violin \
-    --teleop.port=/dev/ttyUSB0 \
-    --teleop.id=my_awesome_staraiviolin_arm
+    --robot.type=bi_starai_follower \
+    --robot.left_arm_port=/dev/ttyUSB1 \
+    --robot.right_arm_port=/dev/ttyUSB3 \
+    --robot.id=bi_starai_follower \
+    --teleop.type=bi_starai_leader \
+    --teleop.left_arm_port=/dev/ttyUSB0 \
+    --teleop.right_arm_port=/dev/ttyUSB2 \
+    --teleop.id=bi_starai_leader
 ```
 
 After the program starts, the Hover Lock Technology remains functional.
@@ -290,13 +294,15 @@ After confirming that the external camera is connected, replace the camera infor
 
 ```bash
 lerobot-teleoperate \
-    --robot.type=starai_viola \
-    --robot.port=/dev/ttyUSB1 \
-    --robot.id=my_awesome_staraiviola_arm \
+    --robot.type=bi_starai_follower \
+    --robot.left_arm_port=/dev/ttyUSB1 \
+    --robot.right_arm_port=/dev/ttyUSB3 \
+    --robot.id=bi_starai_follower \
     --robot.cameras="{ front: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30}}" \
-    --teleop.type=starai_violin \
-    --teleop.port=/dev/ttyUSB0 \
-    --teleop.id=my_awesome_staraiviolin_arm \
+    --teleop.type=bi_starai_leader \
+    --teleop.left_arm_port=/dev/ttyUSB0 \
+    --teleop.right_arm_port=/dev/ttyUSB2 \
+    --teleop.id=bi_starai_leader \
     --display_data=true
     
 ```
@@ -320,15 +326,17 @@ Record 10 episodes.
 
 ```bash
 lerobot-record \
-    --robot.type=starai_viola \
-    --robot.port=/dev/ttyUSB1 \
-    --robot.id=my_awesome_staraiviola_arm \
+    --robot.type=bi_starai_follower \
+    --robot.left_arm_port=/dev/ttyUSB1 \
+    --robot.right_arm_port=/dev/ttyUSB3 \
+    --robot.id=bi_starai_follower \
+    --teleop.type=bi_starai_leader \
+    --teleop.left_arm_port=/dev/ttyUSB0 \
+    --teleop.right_arm_port=/dev/ttyUSB2 \
+    --teleop.id=bi_starai_leader \
     --robot.cameras="{ up: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30},front: {type: opencv, index_or_path: /dev/video4, width: 640, height: 480, fps: 30}}" \
-    --teleop.type=starai_violin \
-    --teleop.port=/dev/ttyUSB0 \
-    --teleop.id=my_awesome_staraiviolin_arm \
     --display_data=true \
-    --dataset.repo_id=starai/record-test \
+    --dataset.repo_id=starai/record-test_bi_arm \
     --dataset.episode_time_s=30 \
     --dataset.reset_time_s=30 \
     --dataset.num_episodes=10 \
@@ -340,11 +348,12 @@ lerobot-record \
 
 ```bash
 lerobot-replay \
-    --robot.type=starai_viola \
-    --robot.port=/dev/ttyUSB1 \
-    --robot.id=my_awesome_staraiviola_arm \
-    --dataset.repo_id=starai/record-test \
-    --dataset.episode=1 # choose the episode you want to replay
+    --robot.type=bi_starai_follower \
+    --robot.left_arm_port=/dev/ttyUSB1 \
+    --robot.right_arm_port=/dev/ttyUSB3 \
+    --robot.id=bi_starai_follower \
+    --dataset.repo_id=starai/record-test_bi_arm \
+    --dataset.episode=0 # choose the episode you want to replay
 ```
 
 ## Train
@@ -353,10 +362,10 @@ Train a policy to control your robot
 
 ```bash
 lerobot-train \
-  --dataset.repo_id=starai/record-test \
+  --dataset.repo_id=starai/record-test_bi_arm \
   --policy.type=act \
-  --output_dir=outputs/train/act_viola_test \
-  --job_name=act_viola_test \
+  --output_dir=outputs/train/act_bi_viola_test \
+  --job_name=act_bi_viola_test \
   --policy.device=cuda \
   --wandb.enable=False \
   --policy.repo_id=starai/my_policy
@@ -366,7 +375,7 @@ To resume training from a checkpoint
 
 ```bash
 lerobot-train \
-  --config_path=outputs/train/act_viola_test/checkpoints/last/pretrained_model/train_config.json \
+  --config_path=outputs/train/act_bi_viola_test/checkpoints/last/pretrained_model/train_config.json \
   --resume=true
 ```
 
@@ -376,18 +385,15 @@ lerobot-train \
 
 ```bash
 lerobot-record  \
-  --robot.type=starai_viola \
-  --robot.port=/dev/ttyUSB1 \
-  --robot.cameras="{ up: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30},front: {type: opencv, index_or_path: /dev/video4, width: 640, height: 480, fps: 30}}" \
-  --robot.id=my_awesome_staraiviola_arm \
-  --display_data=false \
-  --dataset.repo_id=starai/eval_record-test \
-  --dataset.single_task="Put lego brick into the transparent box" \
-  --policy.path=outputs/train/act_viola_test/checkpoints/last/pretrained_model
-  # <- Teleop optional if you want to teleoperate in between episodes \
-  # --teleop.type=starai_violin \
-  # --teleop.port=/dev/ttyUSB0 \
-  # --teleop.id=my_awesome_leader_arm \
+    --robot.type=bi_starai_follower \
+    --robot.left_arm_port=/dev/ttyUSB1 \
+    --robot.right_arm_port=/dev/ttyUSB3 \
+    --robot.cameras="{ up: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30},front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}" \
+    --robot.id=bi_starai_follower \
+    --display_data=false \
+    --dataset.repo_id=starai/eval_record-test_bi_arm \
+    --dataset.single_task="test" \
+    --policy.path=outputs/train/act_bi_viola_test/checkpoints/last/pretrained_model
 ```
 
 ## Reference Documentation

@@ -1,8 +1,6 @@
 # 如何搭建具身智能LeRobot-starai系列机械臂并完成自定义抓取任务
 
-
-
-##  产品介绍
+## 产品介绍
 
 1. **开源 & 便于二次开发**
    本系列舵机由[华馨京科技](https://fashionrobo.com/)提供，是一套开源、便于二次开发的6+1自由度机器臂解决方案。
@@ -13,8 +11,6 @@
 4. **兼容 Nvidia 平台**
    支持通过 reComputer Mini J4012 Orin NX 16GB 平台进行部署。
 
-
-
 ## 特点内容
 
 - **零组装**:  即刻上手｜一开箱即踏入AI时代。
@@ -22,8 +18,6 @@
 - 配备2颗全金属无刷总线舵机，稳定驱动，轻松承重300g。
 - 智能平行夹爪，最大开合66mm，模块化指尖，精准抓取不设限。
 - 独家悬停控制系统，指尖一按，Leader Arm稳停于任意姿态。
-
-
 
 ## 规格参数
 
@@ -56,12 +50,6 @@
 
 [RX8-U50H-M](https://fashionrobo.com/actuator-u50/136/)
 
-
-
-
-
-
-
 ## 初始环境搭建
 
 For Ubuntu X86:
@@ -78,13 +66,15 @@ For Ubuntu X86:
 需要根据你的 CUDA 版本安装 pytorch 和 torchvision 等环境。
 
 1. 安装 Miniconda： 对于 Jetson：
+
     ```bash
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh
     chmod +x Miniconda3-latest-Linux-aarch64.sh
     ./Miniconda3-latest-Linux-aarch64.sh
     source ~/.bashrc
     ```
-	或者，对于 X86 Ubuntu 22.04：
+
+    或者，对于 X86 Ubuntu 22.04：
 
     ```bash
     mkdir -p ~/miniconda3
@@ -107,13 +97,13 @@ For Ubuntu X86:
     ```bash
     git clone https://github.com/servodevelop/lerobot.git
     ```
-	切换到develop分支
 
 4. 使用 miniconda 时，在环境中安装 ffmpeg：
 
     ```bash
     conda install ffmpeg -c conda-forge
     ```
+
     这通常会为你的平台安装使用 libsvtav1 编码器编译的 ffmpeg 7.X。如果不支持 libsvtav1（可以通过 ffmpeg -encoders 查看支持的编码器），你可以：
 
     - 【适用于所有平台】显式安装 ffmpeg 7.X：
@@ -127,6 +117,7 @@ For Ubuntu X86:
     ```bash
     cd ~/lerobot && pip install -e ".[starai]"
     ```
+
 6. 检查 Pytorch 和 Torchvision
 
     由于通过 pip 安装 LeRobot 环境时会卸载原有的 Pytorch 和 Torchvision 并安装 CPU 版本，因此需要在 Python 中进行检查。
@@ -141,8 +132,6 @@ For Ubuntu X86:
 ### 接线
 
 https://github.com/user-attachments/assets/56130bd9-21ee-4ae4-9cac-3817ac4d659f
-
-
 
 ### 手臂端口设置
 
@@ -192,11 +181,9 @@ lerobot-find-port
 > ```
 >
 
-
-
 ## 校准
 
-如果是第一次校准，请对每个关节左右转动到对应位置。
+如果是第一次校准，请对每个关节左右转动到极限位置。
 
 如果是重新校准，按照命令提示输入字母c后按Enter键。
 
@@ -218,8 +205,6 @@ lerobot-find-port
 >
 > 将leader连接到/dev/ttyUSB0，或者修改下面的命令。
 
-
-
 ```bash
 lerobot-calibrate     --teleop.type=starai_violin --teleop.port=/dev/ttyUSB0 --teleop.id=my_awesome_staraiviolin_arm
 ```
@@ -236,15 +221,11 @@ lerobot-calibrate     --robot.type=starai_viola --robot.port=/dev/ttyUSB1 --robo
 
 ## 遥操作
 
-
 https://github.com/user-attachments/assets/23b3aa00-9889-48d3-ae2c-00ad50595e0a
-
 
 将手臂移动至图上位置待机。
 
 ![image-20250717064511074](media/image-20250717064511074.png)
-
-
 
 您已准备好遥操作您的机器人（不包括摄像头）！运行以下简单脚本：
 
@@ -257,21 +238,17 @@ lerobot-teleoperate \
     --teleop.port=/dev/ttyUSB0 \
     --teleop.id=my_awesome_staraiviolin_arm
 ```
+
 远程操作命令将自动检测下列参数:
 
 1. 识别任何缺失的校准并启动校准程序。
 2. 连接机器人和远程操作设备并开始远程操作。
 
-
-
 程序启动后，悬停按钮依旧生效。
-
-
 
 ## 添加摄像头
 
 https://github.com/user-attachments/assets/82650b56-96be-4151-9260-2ed6ab8b133f
-
 
 在插入您的两个 USB 摄像头后，运行以下脚本以检查摄像头的端口号，切记摄像头避免插在USB Hub上，USB Hub速率太慢会导致读不到图像数据。
 
@@ -310,7 +287,6 @@ Finalizing image saving...
 Image capture finished. Images saved to outputs/captured_images
 ```
 
-
 确认外接摄像头后，将摄像头信息替换下方cameras信息您将能够在遥操作时在计算机上显示摄像头：
 
 ```bash
@@ -327,7 +303,6 @@ lerobot-teleoperate \
 ```
 
 ## 数据集制作采集
-
 
 https://github.com/user-attachments/assets/8bb25714-783a-4f29-83dd-58b457aed80c
 
@@ -362,8 +337,6 @@ lerobot-record \
     --dataset.single_task="Grab the black cube"
 ```
 
-
-
 ### 记录功能
 
 - record提供了一套用于在机器人操作过程中捕获和管理数据的工具:
@@ -378,7 +351,7 @@ lerobot-record \
 - 如果出现问题，可以通过使用 重新运行相同的命令来恢复。恢复录制时，必须设置为**要录制的额外剧集数**，而不是数据集中的目标总剧集数！`--resume=true` `--dataset.num_episodes`
 - 要从头开始录制，请**手动删除**数据集目录。
 
-#### 3.记录 参数 
+#### 3.记录参数
 
 使用命令行参数设置数据记录流：
 
@@ -386,30 +359,19 @@ lerobot-record \
 --dataset.reset_time_s=60每集后重置环境的持续时间(默认:60秒)。
 --dataset.num_episodes=50记录的总集数(默认值:50秒)。
 
-
-
 #### 4.录制期间的键盘控制
 
 使用键盘快捷键控制数据记录流：
 
 - 按**右方向键(→)** ： 提前停止当前情节或重置时间,然后移动到下一个。
-
 - 按**左方向键(←)** ：取消当前插曲并重新录制。
 - 按**ESC**：立即停止会话,编码视频并上传数据集。
-
-
 
 >[!TIP]
 >
 >在 Linux 上,如果左右箭头键和转义键在数据记录过程中没有任何效果,请确保已设置$DISPLAY环境变量。参见 pynput 限制。
 >
 >一旦你熟悉了数据记录,你就可以创建一个更大的数据集进行训练。一个好的开始任务是抓住一个物体在不同的位置,并把它放在一个垃圾箱。我们建议录制至少50集,每个地点10集。保持相机固定,并在整个录音中保持一致的抓握行为。还要确保你操纵的对象在相机上可见。一个好的经验法则是,你应该能够只看相机图像自己完成任务。
-
-
-
-
-
-
 
 ## 重播一个回合
 
@@ -423,8 +385,6 @@ lerobot-replay \
     --dataset.repo_id=starai/record-test \
     --dataset.episode=1 # choose the episode you want to replay
 ```
-
-
 
 ## 训练
 
@@ -444,8 +404,6 @@ lerobot-train \
 1. 我们提供了数据集作为参数。`dataset.repo_id=starai/record-test`
 2. 我们为 .这将从 [`configuration_act.py`](https://github.com/huggingface/lerobot/blob/main/src/lerobot/policies/act/configuration_act.py) 加载配置。重要的是，此策略将自动适应机器人的电机状态、电机动作和相机的数量已保存在您的数据集中。`policy.type=act` `laptop` `phone`
 3. 我们提供了使用[权重和偏差](https://docs.wandb.ai/quickstart)来可视化训练图。这是可选的，但如果您使用它，请确保您已通过运行 登录。`wandb.enable=true` `wandb login`
-
-
 
 要从某个检查点恢复训练。
 
@@ -475,8 +433,6 @@ lerobot-record  \
   # --teleop.id=my_awesome_leader_arm \
 ```
 
-
-
 ## FAQ
 
 - 如果使用本文档教程，请git clone本文档推荐的github仓库`https://github.com/servodevelop/lerobot.git`。
@@ -488,8 +444,6 @@ lerobot-record  \
   ```bash
   conda install libtiff==4.5.0  #for Ubuntu 22.04 is libtiff==4.5.1
   ```
-
-  
 
 - 执行完安装LeRobot可能会自动卸载gpu版本的pytorch，所以需要在手动安装torch-gpu。
 
@@ -518,6 +472,3 @@ VQ-BeT:[VQ-BeT: Behavior Generation with Latent Actions](https://sjlee.cc/vq-bet
 Diffusion Policy:[Diffusion Policy](https://diffusion-policy.cs.columbia.edu/)
 
 TD-MPC:[TD-MPC](https://www.nicklashansen.com/td-mpc/)
-
-
-
