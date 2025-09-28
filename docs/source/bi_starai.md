@@ -122,6 +122,17 @@ For Ubuntu X86:
     cd ~/lerobot && pip install -e ".[starai]"
     ```
 
+    对于 Jetson Jetpack 设备（请确保在执行此步骤前按照[此链接教程](https://github.com/Seeed-Projects/reComputer-Jetson-for-Beginners/tree/main/3-Basic-Tools-and-Getting-Started/3.5-Pytorch)第 5 步安装了 Pytorch-gpu 和 Torchvision）：
+
+    ```bash
+    conda install -y -c conda-forge "opencv>=4.10.0.84"  # 通过 conda 安装 OpenCV 和其他依赖，仅适用于 Jetson Jetpack 6.0+
+    conda remove opencv   # 卸载 OpenCV
+    pip3 install opencv-python==4.10.0.84  # 使用 pip3 安装指定版本 OpenCV
+    conda install -y -c conda-forge ffmpeg
+    conda uninstall numpy
+    pip3 install numpy==1.26.0  # 该版本需与 torchvision 兼容
+    ```
+
 6. 检查 Pytorch 和 Torchvision
 
     由于通过 pip 安装 LeRobot 环境时会卸载原有的 Pytorch 和 Torchvision 并安装 CPU 版本，因此需要在 Python 中进行检查。
