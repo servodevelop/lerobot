@@ -23,13 +23,13 @@
 
 ![image-20250709072845215](../media/starai/1-114090080-fashionstar-star-arm-cello-violin.jpg)
 
-| Item                 | Follower Arm \| Viola                             | Leder Arm \|Violin                                |
+| Item                 | Follower Arm \| Cello                             | Leder Arm \|Violin                                |
 | -------------------- | ------------------------------------------------- | ------------------------------------------------- |
-| Degrees of Freedom   | 6+1                                                 | 6+1                                               |
-| Reach                | 470mm                                             | 470mm                                             |
-| Span                 | 940mm                                             | 940mm                                             |
-| Repeatability        | 2mm                                               | -                                                 |
-| Working Payload      | 300g (with 70% Reach)                            | -                                                 |
+| Degrees of Freedom   | 6+1                                               | 6+1                                               |
+| Reach                | 650mm                                             | 470mm                                             |
+| Span                 | 1340mm                                            | 940mm                                             |
+| Repeatability        | 1mm                                               | 2mm                                               |
+| Working Payload      | 750g (with 70% Reach)                             | -                                                 |
 | Servos               | RX8-U50H-M x2<br/>RA8-U25H-M x4<br/>RA8-U26H-M x1 | RX8-U50H-M x2<br/>RA8-U25H-M x4<br/>RA8-U26H-M x1 |
 | Parallel Gripper Ki  | √                                                 | -                                                 |
 | Wrist Rotate         | Yes                                               | Yes                                               |
@@ -40,7 +40,7 @@
 | Works with MoveIt    | √                                                 | /                                                 |
 | Works with Gazebo    | √                                                 | /                                                 |
 | Communication Hub    | UC-01                                             | UC-01                                             |
-| Power Supply         | 12v/120w                                          | 12v/120w                                          |
+| Power Supply         | 12v/300w                                          | 12v/120w                                          |
 
 有关舵机更多资讯，请访问以下链接。
 
@@ -133,7 +133,6 @@ For Ubuntu X86:
 
     ```bash
     pip install lerobot_teleoperator_violin    #使用 pip 安装violin
-    pip install lerobot_robot_viola    #使用 pip 安装viola
     pip install lerobot_robot_cello    #使用 pip 安装cello
     ```
 
@@ -235,7 +234,7 @@ lerobot-calibrate     --teleop.type=lerobot_teleoperator_violin --teleop.port=/d
 > 将follower连接到/dev/ttyUSB1，或者修改下面的命令。
 
 ```bash
-lerobot-calibrate     --robot.type=lerobot_robot_viola --robot.port=/dev/ttyUSB1 --robot.id=my_awesome_staraiviola_arm
+lerobot-calibrate     --robot.type=lerobot_robot_cello --robot.port=/dev/ttyUSB1 --robot.id=my_awesome_staraicello_arm
 ```
 
 ## 遥操作
@@ -250,9 +249,9 @@ https://github.com/user-attachments/assets/23b3aa00-9889-48d3-ae2c-00ad50595e0a
 
 ```bash
 lerobot-teleoperate \
-    --robot.type=lerobot_robot_viola \
+    --robot.type=lerobot_robot_cello \
     --robot.port=/dev/ttyUSB1 \
-    --robot.id=my_awesome_staraiviola_arm \
+    --robot.id=my_awesome_staraicello_arm \
     --teleop.type=lerobot_teleoperator_violin \
     --teleop.port=/dev/ttyUSB0 \
     --teleop.id=my_awesome_staraiviolin_arm
@@ -310,9 +309,9 @@ Image capture finished. Images saved to outputs/captured_images
 
 ```bash
 lerobot-teleoperate \
-    --robot.type=lerobot_robot_viola \
+    --robot.type=lerobot_robot_cello \
     --robot.port=/dev/ttyUSB1 \
-    --robot.id=my_awesome_staraiviola_arm \
+    --robot.id=my_awesome_staraicello_arm \
     --robot.cameras="{ front: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30}}" \
     --teleop.type=lerobot_teleoperator_violin \
     --teleop.port=/dev/ttyUSB0 \
@@ -338,9 +337,9 @@ https://github.com/user-attachments/assets/8bb25714-783a-4f29-83dd-58b457aed80c
 
 ```bash
 lerobot-record \
-    --robot.type=lerobot_robot_viola \
+    --robot.type=lerobot_robot_cello \
     --robot.port=/dev/ttyUSB1 \
-    --robot.id=my_awesome_staraiviola_arm \
+    --robot.id=my_awesome_staraicello_arm \
     --robot.cameras="{ up: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30},front: {type: opencv, index_or_path: /dev/video4, width: 640, height: 480, fps: 30}}" \
     --teleop.type=lerobot_teleoperator_violin \
     --teleop.port=/dev/ttyUSB0 \
@@ -396,9 +395,9 @@ lerobot-record \
 
 ```bash
 lerobot-replay \
-    --robot.type=lerobot_robot_viola \
+    --robot.type=lerobot_robot_cello \
     --robot.port=/dev/ttyUSB1 \
-    --robot.id=my_awesome_staraiviola_arm \
+    --robot.id=my_awesome_staraicello_arm \
     --dataset.repo_id=starai/record-test \
     --dataset.episode=1 # choose the episode you want to replay
 ```
@@ -411,8 +410,8 @@ lerobot-replay \
 lerobot-train \
   --dataset.repo_id=starai/record-test \
   --policy.type=act \
-  --output_dir=outputs/train/act_viola_test \
-  --job_name=act_viola_test \
+  --output_dir=outputs/train/act_cello_test \
+  --job_name=act_cello_test \
   --policy.device=cuda \
   --wandb.enable=False \
   --policy.repo_id=starai/my_policy
@@ -426,7 +425,7 @@ lerobot-train \
 
 ```bash
 lerobot-train \
-  --config_path=outputs/train/act_viola_test/checkpoints/last/pretrained_model/train_config.json \
+  --config_path=outputs/train/act_cello_test/checkpoints/last/pretrained_model/train_config.json \
   --resume=true
 ```
 
@@ -436,14 +435,14 @@ lerobot-train \
 
 ```bash
 lerobot-record  \
-  --robot.type=lerobot_robot_viola \
+  --robot.type=lerobot_robot_cello \
   --robot.port=/dev/ttyUSB1 \
   --robot.cameras="{ up: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30},front: {type: opencv, index_or_path: /dev/video4, width: 640, height: 480, fps: 30}}" \
-  --robot.id=my_awesome_staraiviola_arm \
+  --robot.id=my_awesome_staraicello_arm \
   --display_data=false \
   --dataset.repo_id=starai/eval_record-test \
   --dataset.single_task="Put lego brick into the transparent box" \
-  --policy.path=outputs/train/act_viola_test/checkpoints/last/pretrained_model
+  --policy.path=outputs/train/act_cello_test/checkpoints/last/pretrained_model
   # <- Teleop optional if you want to teleoperate in between episodes \
   # --teleop.type=lerobot_teleoperator_violin \
   # --teleop.port=/dev/ttyUSB0 \

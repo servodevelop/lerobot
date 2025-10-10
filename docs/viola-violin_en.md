@@ -130,7 +130,6 @@ For Ubuntu X86:
      ```bash
     pip install lerobot_teleoperator_violin    # Install violin via pip
     pip install lerobot_robot_viola    # Install viola via pip
-    pip install lerobot_robot_cello    # Install cello via pip
     ```
 
 6. Check Pytorch and Torchvision

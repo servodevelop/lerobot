@@ -134,7 +134,6 @@ For Ubuntu X86:
     ```bash
     pip install lerobot_teleoperator_violin    #使用 pip 安装violin
     pip install lerobot_robot_viola    #使用 pip 安装viola
-    pip install lerobot_robot_cello    #使用 pip 安装cello
     ```
 
 7. 检查 Pytorch 和 Torchvision
