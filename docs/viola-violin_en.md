@@ -388,7 +388,7 @@ lerobot-train \
 
 ## Evaluate your policy
 
-运行以下命令记录 10 个评估回合：
+Run the following command to record 10 evaluation episodes:
 
 ```bash
 lerobot-record  \

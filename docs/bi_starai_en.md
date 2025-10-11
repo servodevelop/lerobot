@@ -128,9 +128,6 @@ For Ubuntu X86:
 5. Install Fashionstar Motor Dependencies:
 
      ```bash
-    pip install lerobot_teleoperator_violin    # install violin via pip
-    pip install lerobot_robot_viola            # install viola via pip
-    pip install lerobot_robot_cello            # install cello via pip
     pip install lerobot_teleoperator_bimanual_leader    # install bimanual_leader via pip
     pip install lerobot_robot_bimanual_follower         # install bimanual_follower via pip
     ```
@@ -233,7 +230,7 @@ Below are the reference values. Under normal circumstances, the actual limit ref
 > Connect the left_arm_port to /dev/ttyUSB0 and the right_arm_port to /dev/ttyUSB2, or modify the command below.
 
 ```bash
-lerobot-calibrate     --teleop.type=lerobot_teleoperator_bimanual_leader  --teleop.left_arm_port=/dev/ttyUSB0  --teleop.right_arm_port=/dev/ttyUSB2  --teleop.id=bi_starai_leader
+lerobot-calibrate     --teleop.type=lerobot_teleoperator_bimanual_leader  --teleop.left_arm_port=/dev/ttyUSB0  --teleop.right_arm_port=/dev/ttyUSB2  --teleop.id=bi_starai_violin_leader
 ```
 
 ### follower
@@ -241,9 +238,10 @@ lerobot-calibrate     --teleop.type=lerobot_teleoperator_bimanual_leader  --tele
 > [!TIP]
 >
 > Connect the left_arm_port to /dev/ttyUSB1 and the right_arm_port to /dev/ttyUSB3, or modify the command below.
+> Please set arm_name to starai_viola or starai_cello based on the follower robotic arm you have, and update the robot.id parameter accordingly.
 
 ```bash
-lerobot-calibrate     --robot.type=lerobot_robot_bimanual_follower  --robot.left_arm_port=/dev/ttyUSB1  --robot.right_arm_port=/dev/ttyUSB3 --robot.id=bi_starai_follower
+lerobot-calibrate     --robot.type=lerobot_robot_bimanual_follower  --robot.arm_name=starai_viola  --robot.left_arm_port=/dev/ttyUSB1  --robot.right_arm_port=/dev/ttyUSB3 --robot.id=bi_starai_viola_follower
 ```
 
 ## Teleoperate
@@ -259,13 +257,14 @@ Then you are ready to teleoperate your robot (It won't display the cameras)! Run
 ```bash
 lerobot-teleoperate \
     --robot.type=lerobot_robot_bimanual_follower \
+    --robot.arm_name=starai_viola \
     --robot.left_arm_port=/dev/ttyUSB1 \
     --robot.right_arm_port=/dev/ttyUSB3 \
-    --robot.id=bi_starai_follower \
+    --robot.id=bi_starai_viola_follower \
     --teleop.type=lerobot_teleoperator_bimanual_leader \
     --teleop.left_arm_port=/dev/ttyUSB0 \
     --teleop.right_arm_port=/dev/ttyUSB2 \
-    --teleop.id=bi_starai_leader
+    --teleop.id=bi_starai_violin_leader
 ```
 
 After the program starts, the Hover Lock Technology remains functional.
@@ -316,14 +315,15 @@ After confirming that the external camera is connected, replace the camera infor
 ```bash
 lerobot-teleoperate \
     --robot.type=lerobot_robot_bimanual_follower \
+    --robot.arm_name=starai_viola \
     --robot.left_arm_port=/dev/ttyUSB1 \
     --robot.right_arm_port=/dev/ttyUSB3 \
-    --robot.id=bi_starai_follower \
+    --robot.id=bi_starai_viola_follower \
     --robot.cameras="{ front: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30}}" \
     --teleop.type=lerobot_teleoperator_bimanual_leader \
     --teleop.left_arm_port=/dev/ttyUSB0 \
     --teleop.right_arm_port=/dev/ttyUSB2 \
-    --teleop.id=bi_starai_leader \
+    --teleop.id=bi_starai_violin_leader \
     --display_data=true
 ```
 
@@ -337,8 +337,7 @@ https://github.com/user-attachments/assets/8bb25714-783a-4f29-83dd-58b457aed80c
 >
 > [lmitation Learning for Robots](https://huggingface.co/docs/lerobot/il_robots?teleoperate_koch_camera=Command)
 >
-> 
-
+>
 
 Once you're familiar with teleoperation, you can record your first dataset.
 
@@ -347,13 +346,14 @@ Record 10 episodes.
 ```bash
 lerobot-record \
     --robot.type=lerobot_robot_bimanual_follower \
+    --robot.arm_name=starai_viola \
     --robot.left_arm_port=/dev/ttyUSB1 \
     --robot.right_arm_port=/dev/ttyUSB3 \
-    --robot.id=bi_starai_follower \
+    --robot.id=bi_starai_viola_follower \
     --teleop.type=lerobot_teleoperator_bimanual_leader \
     --teleop.left_arm_port=/dev/ttyUSB0 \
     --teleop.right_arm_port=/dev/ttyUSB2 \
-    --teleop.id=bi_starai_leader \
+    --teleop.id=bi_starai_violin_leader \
     --robot.cameras="{ up: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30},front: {type: opencv, index_or_path: /dev/video4, width: 640, height: 480, fps: 30}}" \
     --display_data=true \
     --dataset.repo_id=starai/record-test_bi_arm \
@@ -369,9 +369,10 @@ lerobot-record \
 ```bash
 lerobot-replay \
     --robot.type=lerobot_robot_bimanual_follower \
+    --robot.arm_name=starai_viola \
     --robot.left_arm_port=/dev/ttyUSB1 \
     --robot.right_arm_port=/dev/ttyUSB3 \
-    --robot.id=bi_starai_follower \
+    --robot.id=bi_starai_viola_follower \
     --dataset.repo_id=starai/record-test_bi_arm \
     --dataset.episode=0 # choose the episode you want to replay
 ```
@@ -401,15 +402,16 @@ lerobot-train \
 
 ## Evaluate your policy
 
-运行以下命令记录 10 个评估回合：
+Run the following command to record 10 evaluation episodes:
 
 ```bash
 lerobot-record  \
     --robot.type=lerobot_robot_bimanual_follower \
+    --robot.arm_name=starai_viola \
     --robot.left_arm_port=/dev/ttyUSB1 \
     --robot.right_arm_port=/dev/ttyUSB3 \
     --robot.cameras="{ up: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30},front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}" \
-    --robot.id=bi_starai_follower \
+    --robot.id=bi_starai_viola_follower \
     --display_data=false \
     --dataset.repo_id=starai/eval_record-test_bi_arm \
     --dataset.single_task="test" \
