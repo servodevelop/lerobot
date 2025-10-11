@@ -238,6 +238,7 @@ lerobot-calibrate     --teleop.type=lerobot_teleoperator_bimanual_leader  --tele
 > [!TIP]
 >
 > 将left_arm_port连接到/dev/ttyUSB1，right_arm_port连接到/dev/ttyUSB3，或者修改下面的命令。
+>
 > 请根据手上的follower机械臂，将arm_name设置为starai_viola，或者设置为starai_cello，robot.id参数也对应修改。
 
 ```bash
