@@ -72,7 +72,7 @@ For Ubuntu X86:
     ```bash
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh
     chmod +x Miniconda3-latest-Linux-aarch64.sh
-	./Miniconda3-latest-Linux-aarch64.sh
+    ./Miniconda3-latest-Linux-aarch64.sh
     source ~/.bashrc
     ```
 
@@ -108,10 +108,10 @@ For Ubuntu X86:
     conda install ffmpeg=7.1.1 -c conda-forge
     ```
 
-4. Install LeRobot with dependencies for the starai motors:
+4. Install LeRobot:
 
     ```bash
-    cd ~/lerobot && pip install -e ".[starai]"
+    cd ~/lerobot && pip install -e .
     ```
 
     For Jetson Jetpack devices (please ensure that Pytorch-gpu and Torchvision have been installed following Step 5 of [this tutorial](https://github.com/Seeed-Projects/reComputer-Jetson-for-Beginners/tree/main/3-Basic-Tools-and-Getting-Started/3.5-Pytorch) before proceeding with this step):
@@ -125,7 +125,17 @@ For Ubuntu X86:
     pip3 install numpy==1.26.0  # This version needs to be compatible with torchvision
     ```
 
-5. Check Pytorch and Torchvision
+5. Install Fashionstar Motor Dependencies:
+
+     ```bash
+    pip install lerobot_teleoperator_violin    # install violin via pip
+    pip install lerobot_robot_viola            # install viola via pip
+    pip install lerobot_robot_cello            # install cello via pip
+    pip install lerobot_teleoperator_bimanual_leader    # install bimanual_leader via pip
+    pip install lerobot_robot_bimanual_follower         # install bimanual_follower via pip
+    ```
+
+6. Check Pytorch and Torchvision
 
     Since installing the lerobot environment via pip will uninstall the original Pytorch and Torchvision and install the CPU versions of Pytorch and Torchvision, you need to perform a check in Python.
 
@@ -206,15 +216,15 @@ Follow the on-screen prompt: enter the letter "c" and press the Enter key.
 
 Below are the reference values. Under normal circumstances, the actual limit reference values should fall within the range of **±10°** of these references.
 
-| 舵机ID  | 角度下限参考值 | 角度上限参考值 | 备注                               |
-| ------- | -------------: | -------------: | ---------------------------------- |
-| motor_0 |          -180° |           180° | 转动到限位处                       |
-| motor_1 |           -90° |            90° | 转动到限位处                       |
-| motor_2 |           -90° |            90° | 转动到限位处                       |
-| motor_3 |          -180° |           180° | 没有限位，需转动到角度上下限参考值 |
-| motor_4 |           -90° |            90° | 转动到限位处                       |
-| motor_5 |          -180° |           180° | 没有限位，需转动到角度上下限参考值 |
-| motor_6 |             0° |           100° | 转动到限位处                       |
+| Servo ID | Lower Angle Limit | Upper Angle Limit | Notes                               |
+| -------- | -----------------: | -----------------: | ----------------------------------- |
+| motor_0  |             -180°  |             180°   | Rotate to the limit position        |
+| motor_1  |              -90°  |              90°   | Rotate to the limit position        |
+| motor_2  |              -90°  |              90°   | Rotate to the limit position        |
+| motor_3  |             -180°  |             180°   | No limit; rotate to reference angle |
+| motor_4  |              -90°  |              90°   | Rotate to the limit position        |
+| motor_5  |             -180°  |             180°   | No limit; rotate to reference angle |
+| motor_6  |                0°  |             100°   | Rotate to the limit position        |
 
 ### leader
 
@@ -223,7 +233,7 @@ Below are the reference values. Under normal circumstances, the actual limit ref
 > Connect the left_arm_port to /dev/ttyUSB0 and the right_arm_port to /dev/ttyUSB2, or modify the command below.
 
 ```bash
-lerobot-calibrate     --teleop.type=bi_starai_leader  --teleop.left_arm_port=/dev/ttyUSB0  --teleop.right_arm_port=/dev/ttyUSB2  --teleop.id=bi_starai_leader
+lerobot-calibrate     --teleop.type=lerobot_teleoperator_bimanual_leader  --teleop.left_arm_port=/dev/ttyUSB0  --teleop.right_arm_port=/dev/ttyUSB2  --teleop.id=bi_starai_leader
 ```
 
 ### follower
@@ -233,7 +243,7 @@ lerobot-calibrate     --teleop.type=bi_starai_leader  --teleop.left_arm_port=/de
 > Connect the left_arm_port to /dev/ttyUSB1 and the right_arm_port to /dev/ttyUSB3, or modify the command below.
 
 ```bash
-lerobot-calibrate     --robot.type=bi_starai_follower  --robot.left_arm_port=/dev/ttyUSB1  --robot.right_arm_port=/dev/ttyUSB3 --robot.id=bi_starai_follower
+lerobot-calibrate     --robot.type=lerobot_robot_bimanual_follower  --robot.left_arm_port=/dev/ttyUSB1  --robot.right_arm_port=/dev/ttyUSB3 --robot.id=bi_starai_follower
 ```
 
 ## Teleoperate
@@ -248,11 +258,11 @@ Then you are ready to teleoperate your robot (It won't display the cameras)! Run
 
 ```bash
 lerobot-teleoperate \
-    --robot.type=bi_starai_follower \
+    --robot.type=lerobot_robot_bimanual_follower \
     --robot.left_arm_port=/dev/ttyUSB1 \
     --robot.right_arm_port=/dev/ttyUSB3 \
     --robot.id=bi_starai_follower \
-    --teleop.type=bi_starai_leader \
+    --teleop.type=lerobot_teleoperator_bimanual_leader \
     --teleop.left_arm_port=/dev/ttyUSB0 \
     --teleop.right_arm_port=/dev/ttyUSB2 \
     --teleop.id=bi_starai_leader
@@ -305,17 +315,16 @@ After confirming that the external camera is connected, replace the camera infor
 
 ```bash
 lerobot-teleoperate \
-    --robot.type=bi_starai_follower \
+    --robot.type=lerobot_robot_bimanual_follower \
     --robot.left_arm_port=/dev/ttyUSB1 \
     --robot.right_arm_port=/dev/ttyUSB3 \
     --robot.id=bi_starai_follower \
     --robot.cameras="{ front: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30}}" \
-    --teleop.type=bi_starai_leader \
+    --teleop.type=lerobot_teleoperator_bimanual_leader \
     --teleop.left_arm_port=/dev/ttyUSB0 \
     --teleop.right_arm_port=/dev/ttyUSB2 \
     --teleop.id=bi_starai_leader \
     --display_data=true
-    
 ```
 
 ## Record the dataset
@@ -337,11 +346,11 @@ Record 10 episodes.
 
 ```bash
 lerobot-record \
-    --robot.type=bi_starai_follower \
+    --robot.type=lerobot_robot_bimanual_follower \
     --robot.left_arm_port=/dev/ttyUSB1 \
     --robot.right_arm_port=/dev/ttyUSB3 \
     --robot.id=bi_starai_follower \
-    --teleop.type=bi_starai_leader \
+    --teleop.type=lerobot_teleoperator_bimanual_leader \
     --teleop.left_arm_port=/dev/ttyUSB0 \
     --teleop.right_arm_port=/dev/ttyUSB2 \
     --teleop.id=bi_starai_leader \
@@ -359,7 +368,7 @@ lerobot-record \
 
 ```bash
 lerobot-replay \
-    --robot.type=bi_starai_follower \
+    --robot.type=lerobot_robot_bimanual_follower \
     --robot.left_arm_port=/dev/ttyUSB1 \
     --robot.right_arm_port=/dev/ttyUSB3 \
     --robot.id=bi_starai_follower \
@@ -396,7 +405,7 @@ lerobot-train \
 
 ```bash
 lerobot-record  \
-    --robot.type=bi_starai_follower \
+    --robot.type=lerobot_robot_bimanual_follower \
     --robot.left_arm_port=/dev/ttyUSB1 \
     --robot.right_arm_port=/dev/ttyUSB3 \
     --robot.cameras="{ up: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30},front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}" \

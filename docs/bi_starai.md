@@ -116,10 +116,10 @@ For Ubuntu X86:
     conda install ffmpeg=7.1.1 -c conda-forge
     ```
 
-5. 安装带有 fashionstar 电机依赖的 LeRobot：
+5. 安装LeRobot：
 
     ```bash
-    cd ~/lerobot && pip install -e ".[starai]"
+    cd ~/lerobot && pip install -e .
     ```
 
     对于 Jetson Jetpack 设备（请确保在执行此步骤前按照[此链接教程](https://github.com/Seeed-Projects/reComputer-Jetson-for-Beginners/tree/main/3-Basic-Tools-and-Getting-Started/3.5-Pytorch)第 5 步安装了 Pytorch-gpu 和 Torchvision）：
@@ -133,7 +133,17 @@ For Ubuntu X86:
     pip3 install numpy==1.26.0  # 该版本需与 torchvision 兼容
     ```
 
-6. 检查 Pytorch 和 Torchvision
+6. 安装Fashionstar电机依赖：
+
+    ```bash
+    pip install lerobot_teleoperator_violin    #使用 pip 安装violin
+    pip install lerobot_robot_viola    #使用 pip 安装viola
+    pip install lerobot_robot_cello    #使用 pip 安装cello
+    pip install lerobot_teleoperator_bimanual_leader    #使用 pip 安装bimanual_leader
+    pip install lerobot_robot_bimanual_follower    #使用 pip 安装bimanual_follower
+    ```
+
+7. 检查 Pytorch 和 Torchvision
 
     由于通过 pip 安装 LeRobot 环境时会卸载原有的 Pytorch 和 Torchvision 并安装 CPU 版本，因此需要在 Python 中进行检查。
 
@@ -223,7 +233,7 @@ lerobot-find-port
 > 将left_arm_port连接到/dev/ttyUSB0，right_arm_port连接到/dev/ttyUSB2，或者修改下面的命令。
 
 ```bash
-lerobot-calibrate     --teleop.type=bi_starai_leader  --teleop.left_arm_port=/dev/ttyUSB0  --teleop.right_arm_port=/dev/ttyUSB2  --teleop.id=bi_starai_leader
+lerobot-calibrate     --teleop.type=lerobot_teleoperator_bimanual_leader  --teleop.left_arm_port=/dev/ttyUSB0  --teleop.right_arm_port=/dev/ttyUSB2  --teleop.id=bi_starai_leader
 ```
 
 ### follower
@@ -233,7 +243,7 @@ lerobot-calibrate     --teleop.type=bi_starai_leader  --teleop.left_arm_port=/de
 > 将left_arm_port连接到/dev/ttyUSB1，right_arm_port连接到/dev/ttyUSB3，或者修改下面的命令。
 
 ```bash
-lerobot-calibrate     --robot.type=bi_starai_follower  --robot.left_arm_port=/dev/ttyUSB1  --robot.right_arm_port=/dev/ttyUSB3 --robot.id=bi_starai_follower
+lerobot-calibrate     --robot.type=lerobot_robot_bimanual_follower  --robot.left_arm_port=/dev/ttyUSB1  --robot.right_arm_port=/dev/ttyUSB3 --robot.id=bi_starai_follower
 ```
 
 ## 遥操作
@@ -248,11 +258,11 @@ https://github.com/user-attachments/assets/23b3aa00-9889-48d3-ae2c-00ad50595e0a
 
 ```bash
 lerobot-teleoperate \
-    --robot.type=bi_starai_follower \
+    --robot.type=lerobot_robot_bimanual_follower \
     --robot.left_arm_port=/dev/ttyUSB1 \
     --robot.right_arm_port=/dev/ttyUSB3 \
     --robot.id=bi_starai_follower \
-    --teleop.type=bi_starai_leader \
+    --teleop.type=lerobot_teleoperator_bimanual_leader \
     --teleop.left_arm_port=/dev/ttyUSB0 \
     --teleop.right_arm_port=/dev/ttyUSB2 \
     --teleop.id=bi_starai_leader
@@ -310,17 +320,16 @@ Image capture finished. Images saved to outputs/captured_images
 
 ```bash
 lerobot-teleoperate \
-    --robot.type=bi_starai_follower \
+    --robot.type=lerobot_robot_bimanual_follower \
     --robot.left_arm_port=/dev/ttyUSB1 \
     --robot.right_arm_port=/dev/ttyUSB3 \
     --robot.id=bi_starai_follower \
     --robot.cameras="{ front: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30}}" \
-    --teleop.type=bi_starai_leader \
+    --teleop.type=lerobot_teleoperator_bimanual_leader \
     --teleop.left_arm_port=/dev/ttyUSB0 \
     --teleop.right_arm_port=/dev/ttyUSB2 \
     --teleop.id=bi_starai_leader \
     --display_data=true
-    
 ```
 
 ## 数据集制作采集
@@ -342,11 +351,11 @@ https://github.com/user-attachments/assets/8bb25714-783a-4f29-83dd-58b457aed80c
 
 ```bash
 lerobot-record \
-    --robot.type=bi_starai_follower \
+    --robot.type=lerobot_robot_bimanual_follower \
     --robot.left_arm_port=/dev/ttyUSB1 \
     --robot.right_arm_port=/dev/ttyUSB3 \
     --robot.id=bi_starai_follower \
-    --teleop.type=bi_starai_leader \
+    --teleop.type=lerobot_teleoperator_bimanual_leader \
     --teleop.left_arm_port=/dev/ttyUSB0 \
     --teleop.right_arm_port=/dev/ttyUSB2 \
     --teleop.id=bi_starai_leader \
@@ -402,7 +411,7 @@ lerobot-record \
 
 ```bash
 lerobot-replay \
-    --robot.type=bi_starai_follower \
+    --robot.type=lerobot_robot_bimanual_follower \
     --robot.left_arm_port=/dev/ttyUSB1 \
     --robot.right_arm_port=/dev/ttyUSB3 \
     --robot.id=bi_starai_follower \
@@ -443,7 +452,7 @@ lerobot-train \
 
 ```bash
 lerobot-record  \
-    --robot.type=bi_starai_follower \
+    --robot.type=lerobot_robot_bimanual_follower \
     --robot.left_arm_port=/dev/ttyUSB1 \
     --robot.right_arm_port=/dev/ttyUSB3 \
     --robot.cameras="{ up: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30},front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}" \
