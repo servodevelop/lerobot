@@ -317,6 +317,16 @@ lerobot-teleoperate \
     --teleop.port=/dev/ttyUSB0 \
     --teleop.id=my_awesome_staraiviolin_arm \
     --display_data=true
+# new
+# lerobot-teleoperate \
+#     --robot.type=lerobot_robot_viola \
+#     --robot.port=/dev/ttyUSB1 \
+#     --robot.id=my_awesome_staraiviola_arm \
+#     --robot.cameras="{ front: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30, fourcc: "MJPG"}}" \
+#     --teleop.type=lerobot_teleoperator_violin \
+#     --teleop.port=/dev/ttyUSB0 \
+#     --teleop.id=my_awesome_staraiviolin_arm \
+#     --display_data=true
 ```
 
 ## 数据集制作采集
