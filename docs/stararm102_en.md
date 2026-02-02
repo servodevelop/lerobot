@@ -128,8 +128,8 @@ For Ubuntu X86:
 5. Install Fashionstar Motor Dependencies:
 
      ```bash
-    pip install lerobot_teleoperator_stararm102    # Install StarArm101_leader via pip
-    pip install lerobot_robot_stararm102    # Install StarArm101_follower via pip
+    pip install lerobot_teleoperator_stararm102    # Install StarArm102_leader via pip
+    pip install lerobot_robot_stararm102    # Install StarArm102_follower via pip
     ```
 
 6. Check Pytorch and Torchvision

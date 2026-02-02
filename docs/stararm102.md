@@ -133,7 +133,7 @@ For Ubuntu X86:
 
     ```bash
     pip install lerobot_teleoperator_stararm102   #使用 pip 安装StarArm102_leader
-    pip install lerobot_robot_stararm102    #使用 pip 安装StarArm101_follower
+    pip install lerobot_robot_stararm102    #使用 pip 安装StarArm102_follower
     ```
 
 7. 检查 Pytorch 和 Torchvision
