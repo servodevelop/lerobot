@@ -132,8 +132,8 @@ For Ubuntu X86:
 6. 安装Fashionstar电机依赖：
 
     ```bash
-    pip install lerobot_teleoperator_fs101_leader    #使用 pip 安装StarArm101_leader
-    pip install lerobot_robot_fs101_follower    #使用 pip 安装StarArm101_follower
+    pip install lerobot_teleoperator_stararm102   #使用 pip 安装StarArm102_leader
+    pip install lerobot_robot_stararm102    #使用 pip 安装StarArm101_follower
     ```
 
 7. 检查 Pytorch 和 Torchvision
@@ -224,7 +224,7 @@ lerobot-find-port
 > 将leader连接到/dev/ttyUSB0，或者修改下面的命令。
 
 ```bash
-lerobot-calibrate     --teleop.type=lerobot_teleoperator_fs101_leader --teleop.port=/dev/ttyUSB0 --teleop.id=my_awesome_fs101_leader_arm
+lerobot-calibrate     --teleop.type=lerobot_teleoperator_stararm102 --teleop.port=/dev/ttyUSB0 --teleop.id=my_awesome_stararm102_leader_arm
 ```
 
 ### follower
@@ -234,7 +234,7 @@ lerobot-calibrate     --teleop.type=lerobot_teleoperator_fs101_leader --teleop.p
 > 将follower连接到/dev/ttyUSB1，或者修改下面的命令。
 
 ```bash
-lerobot-calibrate     --robot.type=lerobot_robot_fs101_follower --robot.port=/dev/ttyUSB1 --robot.id=my_awesome_fs101_follower_arm
+lerobot-calibrate     --robot.type=lerobot_robot_stararm102 --robot.port=/dev/ttyUSB1 --robot.id=my_awesome_stararm102_follower_arm
 ```
 
 ## 遥操作
@@ -249,12 +249,12 @@ https://github.com/user-attachments/assets/23b3aa00-9889-48d3-ae2c-00ad50595e0a
 
 ```bash
 lerobot-teleoperate \
-    --robot.type=lerobot_robot_fs101_follower \
+    --robot.type=lerobot_robot_stararm102 \
     --robot.port=/dev/ttyUSB1 \
-    --robot.id=my_awesome_fs101_follower_arm \
-    --teleop.type=lerobot_teleoperator_fs101_leader \
+    --robot.id=my_awesome_stararm102_follower_arm \
+    --teleop.type=lerobot_teleoperator_stararm102 \
     --teleop.port=/dev/ttyUSB0 \
-    --teleop.id=my_awesome_fs101_leader_arm
+    --teleop.id=my_awesome_stararm102_leader_arm
 ```
 
 远程操作命令将自动检测下列参数:
@@ -309,23 +309,23 @@ Image capture finished. Images saved to outputs/captured_images
 
 ```bash
 lerobot-teleoperate \
-    --robot.type=lerobot_robot_fs101_follower \
+    --robot.type=lerobot_robot_stararm102 \
     --robot.port=/dev/ttyUSB1 \
-    --robot.id=my_awesome_fs101_follower_arm \
+    --robot.id=my_awesome_stararm102_follower_arm \
     --robot.cameras="{ front: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30}}" \
-    --teleop.type=lerobot_teleoperator_fs101_leader \
+    --teleop.type=lerobot_teleoperator_stararm102 \
     --teleop.port=/dev/ttyUSB0 \
-    --teleop.id=my_awesome_fs101_leader_arm \
+    --teleop.id=my_awesome_stararm102_leader_arm \
     --display_data=true
 # new
 # lerobot-teleoperate \
-#     --robot.type=lerobot_robot_fs101_follower \
+#     --robot.type=lerobot_robot_stararm102 \
 #     --robot.port=/dev/ttyUSB1 \
-#     --robot.id=my_awesome_fs101_follower_arm \
+#     --robot.id=my_awesome_stararm102_follower_arm \
 #     --robot.cameras="{ front: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30, fourcc: "MJPG"}}" \
-#     --teleop.type=lerobot_teleoperator_fs101_leader \
+#     --teleop.type=lerobot_teleoperator_stararm102 \
 #     --teleop.port=/dev/ttyUSB0 \
-#     --teleop.id=my_awesome_fs101_leader_arm \
+#     --teleop.id=my_awesome_stararm102_leader_arm \
 #     --display_data=true
 ```
 
@@ -347,13 +347,13 @@ https://github.com/user-attachments/assets/8bb25714-783a-4f29-83dd-58b457aed80c
 
 ```bash
 lerobot-record \
-    --robot.type=lerobot_robot_fs101_follower \
+    --robot.type=lerobot_robot_stararm102 \
     --robot.port=/dev/ttyUSB1 \
-    --robot.id=my_awesome_fs101_follower_arm \
+    --robot.id=my_awesome_stararm102_follower_arm \
     --robot.cameras="{ up: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30},front: {type: opencv, index_or_path: /dev/video4, width: 640, height: 480, fps: 30}}" \
-    --teleop.type=lerobot_teleoperator_fs101_leader \
+    --teleop.type=lerobot_teleoperator_stararm102 \
     --teleop.port=/dev/ttyUSB0 \
-    --teleop.id=my_awesome_fs101_leader_arm \
+    --teleop.id=my_awesome_stararm102_leader_arm \
     --display_data=true \
     --dataset.repo_id=starai/record-test \
     --dataset.episode_time_s=30 \
@@ -405,9 +405,9 @@ lerobot-record \
 
 ```bash
 lerobot-replay \
-    --robot.type=lerobot_robot_fs101_follower \
+    --robot.type=lerobot_robot_stararm102 \
     --robot.port=/dev/ttyUSB1 \
-    --robot.id=my_awesome_fs101_follower_arm \
+    --robot.id=my_awesome_stararm102_follower_arm \
     --dataset.repo_id=starai/record-test \
     --dataset.episode=1 # choose the episode you want to replay
 ```
@@ -420,8 +420,8 @@ lerobot-replay \
 lerobot-train \
   --dataset.repo_id=starai/record-test \
   --policy.type=act \
-  --output_dir=outputs/train/act_fs101_test \
-  --job_name=act_fs101_test \
+  --output_dir=outputs/train/act_stararm102_test \
+  --job_name=act_stararm102_test \
   --policy.device=cuda \
   --wandb.enable=False \
   --policy.repo_id=starai/my_policy
@@ -435,7 +435,7 @@ lerobot-train \
 
 ```bash
 lerobot-train \
-  --config_path=outputs/train/act_fs101_test/checkpoints/last/pretrained_model/train_config.json \
+  --config_path=outputs/train/act_stararm102_test/checkpoints/last/pretrained_model/train_config.json \
   --resume=true
 ```
 
@@ -445,18 +445,18 @@ lerobot-train \
 
 ```bash
 lerobot-record  \
-  --robot.type=lerobot_robot_fs101_follower \
+  --robot.type=lerobot_robot_stararm102 \
   --robot.port=/dev/ttyUSB1 \
   --robot.cameras="{ up: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30},front: {type: opencv, index_or_path: /dev/video4, width: 640, height: 480, fps: 30}}" \
-  --robot.id=my_awesome_fs101_follower_arm \
+  --robot.id=my_awesome_stararm102_follower_arm \
   --display_data=false \
   --dataset.repo_id=starai/eval_record-test \
   --dataset.single_task="Put lego brick into the transparent box" \
-  --policy.path=outputs/train/act_fs101_test/checkpoints/last/pretrained_model
+  --policy.path=outputs/train/act_stararm102_test/checkpoints/last/pretrained_model
   # <- Teleop optional if you want to teleoperate in between episodes \
-  # --teleop.type=lerobot_teleoperator_fs101_leader \
+  # --teleop.type=lerobot_teleoperator_stararm102 \
   # --teleop.port=/dev/ttyUSB0 \
-  # --teleop.id=my_awesome_fs101_leader_arm \
+  # --teleop.id=my_awesome_stararm102_leader_arm \
 ```
 
 ## FAQ

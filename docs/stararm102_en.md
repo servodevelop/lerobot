@@ -128,8 +128,8 @@ For Ubuntu X86:
 5. Install Fashionstar Motor Dependencies:
 
      ```bash
-    pip install lerobot_teleoperator_fs101_leader    # Install StarArm101_leader via pip
-    pip install lerobot_robot_fs101_follower    # Install StarArm101_follower via pip
+    pip install lerobot_teleoperator_stararm102    # Install StarArm101_leader via pip
+    pip install lerobot_robot_stararm102    # Install StarArm101_follower via pip
     ```
 
 6. Check Pytorch and Torchvision
@@ -228,7 +228,7 @@ Below are the reference values. Under normal circumstances, the actual limit ref
 > Connect the leader to /dev/ttyUSB0, or modify the command below.
 
 ```bash
-lerobot-calibrate     --teleop.type=lerobot_teleoperator_fs101_leader --teleop.port=/dev/ttyUSB0 --teleop.id=my_awesome_fs101_leader_arm
+lerobot-calibrate     --teleop.type=lerobot_teleoperator_stararm102 --teleop.port=/dev/ttyUSB0 --teleop.id=my_awesome_stararm102_leader_arm
 ```
 
 ### follower
@@ -238,7 +238,7 @@ lerobot-calibrate     --teleop.type=lerobot_teleoperator_fs101_leader --teleop.p
 > Connect the follower to /dev/ttyUSB1, or modify the command below.
 
 ```bash
-lerobot-calibrate     --robot.type=lerobot_robot_fs101_follower --robot.port=/dev/ttyUSB1 --robot.id=my_awesome_fs101_follower_arm
+lerobot-calibrate     --robot.type=lerobot_robot_stararm102 --robot.port=/dev/ttyUSB1 --robot.id=my_awesome_stararm102_follower_arm
 ```
 
 ## Teleoperate
@@ -253,12 +253,12 @@ Then you are ready to teleoperate your robot (It won't display the cameras)! Run
 
 ```bash
 lerobot-teleoperate \
-    --robot.type=lerobot_robot_fs101_follower \
+    --robot.type=lerobot_robot_stararm102 \
     --robot.port=/dev/ttyUSB1 \
-    --robot.id=my_awesome_fs101_follower_arm \
-    --teleop.type=lerobot_teleoperator_fs101_leader \
+    --robot.id=my_awesome_stararm102_follower_arm \
+    --teleop.type=lerobot_teleoperator_stararm102 \
     --teleop.port=/dev/ttyUSB0 \
-    --teleop.id=my_awesome_fs101_leader_arm
+    --teleop.id=my_awesome_stararm102_leader_arm
 ```
 
 After the program starts, the Hover Lock Technology remains functional.
@@ -308,13 +308,13 @@ After confirming that the external camera is connected, replace the camera infor
 
 ```bash
 lerobot-teleoperate \
-    --robot.type=lerobot_robot_fs101_follower \
+    --robot.type=lerobot_robot_stararm102 \
     --robot.port=/dev/ttyUSB1 \
-    --robot.id=my_awesome_fs101_follower_arm \
+    --robot.id=my_awesome_stararm102_follower_arm \
     --robot.cameras="{ front: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30}}" \
-    --teleop.type=lerobot_teleoperator_fs101_leader \
+    --teleop.type=lerobot_teleoperator_stararm102 \
     --teleop.port=/dev/ttyUSB0 \
-    --teleop.id=my_awesome_fs101_leader_arm \
+    --teleop.id=my_awesome_stararm102_leader_arm \
     --display_data=true
 ```
 
@@ -336,13 +336,13 @@ Record 10 episodes.
 
 ```bash
 lerobot-record \
-    --robot.type=lerobot_robot_fs101_follower \
+    --robot.type=lerobot_robot_stararm102 \
     --robot.port=/dev/ttyUSB1 \
-    --robot.id=my_awesome_fs101_follower_arm \
+    --robot.id=my_awesome_stararm102_follower_arm \
     --robot.cameras="{ up: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30},front: {type: opencv, index_or_path: /dev/video4, width: 640, height: 480, fps: 30}}" \
-    --teleop.type=lerobot_teleoperator_fs101_leader \
+    --teleop.type=lerobot_teleoperator_stararm102 \
     --teleop.port=/dev/ttyUSB0 \
-    --teleop.id=my_awesome_fs101_leader_arm \
+    --teleop.id=my_awesome_stararm102_leader_arm \
     --display_data=true \
     --dataset.repo_id=starai/record-test \
     --dataset.episode_time_s=30 \
@@ -356,9 +356,9 @@ lerobot-record \
 
 ```bash
 lerobot-replay \
-    --robot.type=lerobot_robot_fs101_follower \
+    --robot.type=lerobot_robot_stararm102 \
     --robot.port=/dev/ttyUSB1 \
-    --robot.id=my_awesome_fs101_follower_arm \
+    --robot.id=my_awesome_stararm102_follower_arm \
     --dataset.repo_id=starai/record-test \
     --dataset.episode=1 # choose the episode you want to replay
 ```
@@ -371,8 +371,8 @@ Train a policy to control your robot
 lerobot-train \
   --dataset.repo_id=starai/record-test \
   --policy.type=act \
-  --output_dir=outputs/train/act_fs101_test \
-  --job_name=act_fs101_test \
+  --output_dir=outputs/train/act_stararm102_test \
+  --job_name=act_stararm102_test \
   --policy.device=cuda \
   --wandb.enable=False \
   --policy.repo_id=starai/my_policy
@@ -392,18 +392,18 @@ Run the following command to record 10 evaluation episodes:
 
 ```bash
 lerobot-record  \
-  --robot.type=lerobot_robot_fs101_follower \
+  --robot.type=lerobot_robot_stararm102 \
   --robot.port=/dev/ttyUSB1 \
   --robot.cameras="{ up: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30},front: {type: opencv, index_or_path: /dev/video4, width: 640, height: 480, fps: 30}}" \
-  --robot.id=my_awesome_fs101_follower_arm \
+  --robot.id=my_awesome_stararm102_follower_arm \
   --display_data=false \
   --dataset.repo_id=starai/eval_record-test \
   --dataset.single_task="Put lego brick into the transparent box" \
-  --policy.path=outputs/train/act_fs101_test/checkpoints/last/pretrained_model
+  --policy.path=outputs/train/act_stararm102_test/checkpoints/last/pretrained_model
   # <- Teleop optional if you want to teleoperate in between episodes \
-  # --teleop.type=lerobot_teleoperator_fs101_leader \
+  # --teleop.type=lerobot_teleoperator_stararm102 \
   # --teleop.port=/dev/ttyUSB0 \
-  # --teleop.id=my_awesome_fs101_leader_arm \
+  # --teleop.id=my_awesome_stararm102_leader_arm \
 ```
 
 ## Reference Documentation
