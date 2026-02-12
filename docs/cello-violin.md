@@ -44,11 +44,11 @@
 
 有关舵机更多资讯，请访问以下链接。
 
-[RA8-U25H-M](https://fashionrobo.com/actuator-u25/23396/)
+[RA8-U25H-M](https://wiki.fashionstar.com.hk/zh/uart-servo/datasheet/ha-ra8-u25h-m/)
 
-[RX18-U100H-M](https://fashionrobo.com/actuator-u100/22853/)
+[RX18-U100H-M](https://wiki.fashionstar.com.hk/zh/uart-servo/datasheet/rx18-u100h-m/)
 
-[RX8-U50H-M](https://fashionrobo.com/actuator-u50/136/)
+[RX8-U50H-M](https://wiki.fashionstar.com.hk/zh/uart-servo/datasheet/hx-rx8-u50h-m/)
 
 ## 初始环境搭建
 
