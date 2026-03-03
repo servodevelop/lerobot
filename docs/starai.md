@@ -157,7 +157,7 @@ For Ubuntu X86:
     print(torch.cuda.is_available())
     ```
 
-    如果输出结果为 False，需要根据[官网教程](https://pytorch.org/index.html)重新安装 Pytorch 和 Torchvision。
+    如果输出结果为 False，需要根据[官网教程](https://pytorch.org)重新安装 Pytorch 和 Torchvision。
 
 ### 接线
 
