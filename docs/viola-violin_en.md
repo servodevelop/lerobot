@@ -94,7 +94,13 @@ For Ubuntu X86:
     conda create -y -n lerobot python=3.10 && conda activate lerobot
     ```
 
-3. When using miniconda, install ffmpeg in your environment:
+3. Clone LeRobot ：
+
+    ```bash
+    git clone https://github.com/servodevelop/lerobot.git
+    ```
+
+4. When using miniconda, install ffmpeg in your environment:
 
     ```bash
     conda install ffmpeg -c conda-forge
@@ -108,7 +114,7 @@ For Ubuntu X86:
     conda install ffmpeg=7.1.1 -c conda-forge
     ```
 
-4. Install LeRobot:
+5. Install LeRobot:
 
     ```bash
     cd ~/lerobot && pip install -e .
@@ -125,14 +131,14 @@ For Ubuntu X86:
     pip3 install numpy==1.26.0  # This version needs to be compatible with torchvision
     ```
 
-5. Install Fashionstar Motor Dependencies:
+6. Install Fashionstar Motor Dependencies:
 
      ```bash
     pip install lerobot_teleoperator_violin    # Install violin via pip
     pip install lerobot_robot_viola    # Install viola via pip
     ```
 
-6. Check Pytorch and Torchvision
+7. Check Pytorch and Torchvision
 
     Since installing the lerobot environment via pip will uninstall the original Pytorch and Torchvision and install the CPU versions of Pytorch and Torchvision, you need to perform a check in Python.
 
