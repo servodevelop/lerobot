@@ -132,7 +132,7 @@ For Ubuntu X86:
 6. 安装Fashionstar电机依赖：
 
     ```bash
-    pip install lerobot_motor_starai==0.0.4
+    pip install lerobot_motor_starai==0.0.4   #使用兼容版本
     pip install lerobot_teleoperator_violin    #使用 pip 安装violin
     pip install lerobot_robot_viola    #使用 pip 安装viola
     ```
