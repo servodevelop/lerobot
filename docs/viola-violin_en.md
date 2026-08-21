@@ -134,6 +134,7 @@ For Ubuntu X86:
 6. Install Fashionstar Motor Dependencies:
 
      ```bash
+     pip install lerobot_motor_starai==0.0.4
     pip install lerobot_teleoperator_violin    # Install violin via pip
     pip install lerobot_robot_viola    # Install viola via pip
     ```
