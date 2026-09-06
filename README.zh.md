@@ -33,7 +33,6 @@ servodevelop/lerobot 是 Fashion Star 在 Star Arm 102 机械臂生态中的 LeR
 
 </div>
 
-
 ## 构建自己的 HopeJR 机器人
 
 ![HopeJR 机器人](https://raw.githubusercontent.com/huggingface/lerobot/main/media/hope_jr/hopejr.png)
@@ -61,8 +60,8 @@ LeRobot 聚焦模仿学习与强化学习，包含已验证可迁移到真实世
 
 ### 仿真环境中的预训练模型示例
 
-| ALOHA 环境中的 ACT 策略 | SimXArm 环境中的 TDMPC 策略 | PushT 环境中的 Diffusion 策略 |
-| --- | --- | --- |
+| ALOHA 环境中的 ACT 策略                                                                    | SimXArm 环境中的 TDMPC 策略                                                                      | PushT 环境中的 Diffusion 策略                                                                          |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
 | ![ACT](https://raw.githubusercontent.com/huggingface/lerobot/main/media/gym/aloha_act.gif) | ![TDMPC](https://raw.githubusercontent.com/huggingface/lerobot/main/media/gym/simxarm_tdmpc.gif) | ![Diffusion](https://raw.githubusercontent.com/huggingface/lerobot/main/media/gym/pusht_diffusion.gif) |
 
 ## 安装
@@ -88,9 +87,9 @@ conda install ffmpeg -c conda-forge
 
 - 所有平台均可明确安装 ffmpeg 7.1.1：
 
-~~~bash
+```bash
 conda install ffmpeg=7.1.1 -c conda-forge
-~~~
+```
 
 - Linux 用户也可安装 [ffmpeg 编译依赖](https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu#GettheDependencies)，并[从源码编译包含 libsvtav1 的 ffmpeg](https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu#libsvtav1)。使用 `which ffmpeg` 确认调用的是对应的二进制文件。
 
@@ -111,9 +110,9 @@ pip install -e .
 
 如果编译失败，可能需要安装 cmake、build-essential 和 ffmpeg 库。Linux 可执行：
 
-~~~bash
+```bash
 sudo apt-get install cmake build-essential python3-dev pkg-config libavformat-dev libavcodec-dev libavdevice-dev libavutil-dev libswscale-dev libswresample-dev libavfilter-dev
-~~~
+```
 
 其他系统参阅 [PyAV 编译说明](https://pyav.org/docs/develop/overview/installation.html#bring-your-own-ffmpeg)。
 
@@ -133,11 +132,11 @@ pip install lerobot
 
 安装额外功能：
 
-~~~bash
+```bash
 pip install 'lerobot[all]'          # 所有可选功能
 pip install 'lerobot[aloha,pusht]'  # Aloha 与 Pusht
 pip install 'lerobot[feetech]'      # Feetech 电机支持
-~~~
+```
 
 将方括号中的内容替换为所需功能。完整可选标签见 [PyPI 项目页面](https://pypi.org/project/lerobot/)。
 
