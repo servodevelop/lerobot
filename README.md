@@ -1,3 +1,20 @@
+# LeRobot Integration for the Star Arm 102 Ecosystem
+
+[中文](README.zh.md)
+
+## Ecosystem
+
+servodevelop/lerobot is Fashion Star's LeRobot framework integration fork in the Star Arm 102 robotic arm ecosystem, connecting robot learning and teleoperation workflows with the central development resources.
+
+- 🔗 [Star Arm 102 Series Hub](https://fashionstar.com.hk/robot-arm/star-arm-102/)
+- 🐙 [Main Repo: Star-Arm-102](https://github.com/servodevelop/Star-Arm-102)
+
+## About This Fork
+
+This repository is a fork of [Hugging Face LeRobot](https://github.com/huggingface/lerobot). Use the main Star-Arm-102 repository linked above for Fashion Star hardware setup and integration guidance. The upstream project overview, installation instructions, examples, and acknowledgements are preserved below; upstream examples refer to their own supported hardware.
+
+---
+
 <p align="center">
   <img alt="LeRobot, Hugging Face Robotics Library" src="https://raw.githubusercontent.com/huggingface/lerobot/main/media/lerobot-logo-thumbnail.png" width="100%">
   <br/>
